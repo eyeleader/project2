@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(사)한국청소년문화원</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <script src="javascript/script.js" defer type="text/javascript"></script>
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script defer src="javascript/jquery.flexslider.js"></script><!-- 슬라이딩배너 -->
+    <script>
+        // Can also be used with $(document).ready()
+        $(window).load(function() {
+            $('.flexslider').flexslider({
+                animation: "slide"
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            mobile_menu();
+        });
+
+        function mobile_menu() {
+            /* 변수 선언 */
+            var $menu = null;
+            var $left_gnb = null; // 영역 전체
+            var $depth1_wrap = null;
+            var $depth1 = null;
+            var $depth1_btn = null;
+
+            /* 시작 함수 */
+            function start() {
+                init();
+                init_event();
+            }
+            /* 변수 초기화 함수 */
+            function init() {
+                $menu = $('.menu2');
+                $left_gnb = $('.left_gnbWrap'); // 영역 전체
+                $depth1_wrap = $('.left_gnb>li');
+                $depth1 = $depth1_wrap.children('ul');
+                $depth1_btn = $depth1_wrap.children('a');
+            }
+            /* 이벤트 함수 */
+            function init_event() {
+
+                /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+                $menu.click(function(event) {
+                    event.preventDefault();
+                    $left_gnb.addClass('on');
+                });
+
+                /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+                $('.close').click(function(event) {
+                    event.preventDefault();
+
+                    $left_gnb.removeClass('on');
+
+                    // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+                    setTimeout(function() {
+                        $depth1_btn.removeClass('on');
+                        $depth1.slideUp();
+                    }, 300)
+                });
+
+                /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+                $depth1_btn.click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var $this_ul = $this.siblings('ul');
+
+                    var check = $this.hasClass('on');
+                    if (check) {
+                        $this.removeClass('on');
+                        $this_ul.stop(true, true).slideUp();
+                    } else {
+                        $depth1_btn.removeClass('on');
+                        $depth1.stop().slideUp();
+                        $this.addClass('on');
+                        $this_ul.stop(true, true).slideDown();
+                    }
+                });
+
+                /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+                $(window).resize(function() {
+                    $left_gnb.removeClass('on');
+                });
+            }
+
+            start(); // 시작 호출
+        }
+    </script>
+</head>
+
+<body>
+    <header id="menuwrap">
+        <div class="top">
+            <div class="logo">
+                <a href="#"><img src="img/logo.jpg" alt="로고"></a>
+            </div>
+            <nav class="menu">
+                <ul class="navi">
+                    <li><a href="#">문화원소개</a>
+                        <ul class="sub_menu">
+                            <li><a href="index_organogram.html">인사말</a></li>
+                            <li><a href="index_organogram.html">본원안내</a></li>
+                            <li><a href="index_organogram.html">오시는길</a></li>
+                            <li><a href="index_organogram.html">협력기관/단체</a></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">소통·참여</a>
+                        <ul class="sub_menu">
+                            <li><a href="#">본원소식</a></li>
+                            <li><a href="#">알림마당</a></li>
+                            <li><a href="#">참여마당</a></li>
+                            <li><a href="#">보도자료</a></li>
+                            <li><a href="#">상담·문의</a></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">사업안내</a>
+                        <ul class="sub_menu">
+                            <li><a href="index_sub.html">국제교류</a></li>
+                            <li><a href="index_sub.html">청소년자원봉사</a></li>
+                            <li><a href="index_sub.html">사회복지&상담</a></li>
+                            <li><a href="index_sub.html">꿈키움진로디자인</a></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">갤러리</a>
+                        <ul class="sub_menu">
+                            <li><a href="#">국제교류</a></li>
+                            <li><a href="#">청소년자원봉사</a></li>
+                            <li><a href="#">사회복지&상담</a></li>
+                            <li><a href="#">꿈키움진로디자인</a></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">후원/자원봉사</a>
+                        <ul class="sub_menu">
+                            <li><a href="#">후원신청</a></li>
+                            <li><a href="#">자원봉사신청</a></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="menu2">
+                <a href="#"></a>
+            </div>
+            <nav class="left_gnbWrap">
+                <a href="#" class="close">
+                    <img src="img/close_btn.png">
+                </a>
+                <ul class="left_gnb">
+                    <li>
+                        <a href="#">문화원소개
+                            <img src="img/down_btn.png">
+                        </a>
+                        <ul>
+                            <li><a href="index_organogram.html">인사말</a></li>
+                            <li><a href="index_organogram.html">본원안내</a></li>
+                            <li><a href="index_organogram.html">오시는길</a></li>
+                            <li><a href="index_organogram.html">협력기관/단체</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">소통·참여
+                            <img src="img/down_btn.png">
+                        </a>
+                        <ul>
+                            <li><a href="#">본원소식</a></li>
+                            <li><a href="#">알림마당</a></li>
+                            <li><a href="#">참여마당</a></li>
+                            <li><a href="#">보도자료</a></li>
+                            <li><a href="#">상담·문의</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">사업안내
+                            <img src="img/down_btn.png">
+                        </a>
+                        <ul>
+                            <li><a href="index_sub.html">국제교류</a></li>
+                            <li><a href="index_sub.html">청소년자원봉사</a></li>
+                            <li><a href="index_sub.html">사회복지&상담</a></li>
+                            <li><a href="index_sub.html">꿈키움진로디자인</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">갤러리
+                            <img src="img/down_btn.png">
+                        </a>
+                        <ul>
+                            <li><a href="#">국제교류</a></li>
+                            <li><a href="#">청소년자원봉사</a></li>
+                            <li><a href="#">사회복지&상담</a></li>
+                            <li><a href="#">꿈키움진로디자인</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">후원/자원봉사
+                            <img src="img/down_btn.png">
+                        </a>
+                        <ul>
+                            <li><a href="#">후원신청</a></li>
+                            <li><a href="#">자원봉사신청</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <img src="img/search.png" alt="검색">
+            </div>
+            <div class="m_menu">
+                <img src="img/m.menu.png" alt="모바일메뉴">
+            </div>
+        </div>
+    </header>
+    <article id="mainimg">
+        <h1 class="hidden">메인이미지</h1>
+        <div id="banner">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="img/mainimg.jpg">
+                    </li>
+                    <li>
+                        <img src="img/mainimg2.jpg">
+                    </li>
+                    <li>
+                        <img src="img/mainimg3.jpg">
+                    </li>
+                    <li>
+                        <img src="img/mainimg4.jpg">
+                    </li>
+                </ul>
+                <div class="flex-direction-nav">
+                    <ul class="flex-direction-nav">
+                        <li class="flex-nav-prev">
+                            <a class="flex-prev" href="#">
+                                ::before
+                                "Previous"
+                            </a>
+                        </li>
+
+                        <li class="flex-nav-next">
+                            <a class="flex-prev" href="#">
+                                ::after
+                                "Next"
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+               
+            </div>    
+        </div>    
+    </article>
+    <main id="contents">
+        <section class="main_con">
+            <h1 class="hidden">사업소개</h1>
+            <ul class="tabmenu">
+                <li class="active"><a href="index_sub.html">국제교류</a>
+
+                    <div class="tab_con1">
+                        <img src="img/tab_con1.jpg" alt="국제교류안내">
+                    </div>
+                </li>
+                <li><a href="index_sub.html">자원봉사</a>
+
+                    <div class="tab_con2">
+                        <img src="img/tab_con.jpg" alt="자원봉사안내">
+                    </div>
+                </li>
+                <li><a href="index_sub.html">사회복지&상담</a>
+
+                    <div class="tab_con3">
+                        <img src="img/tab_con3.jpg" alt="사회복지&상담안내">
+                    </div>
+                </li>
+                <li><a href="index_sub.html">꿈키움진로디자인</a>
+
+                    <div class="tab_con4">
+                        <img src="img/tab_con4.jpg" alt="꿈키움진로디자인안내">
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="info">
+            <h1 class="hidden">알림마당&보도자료</h1>
+            <div class="btn_prev">
+                <a href="#"><img src="img/btn_prev.png" alt="이전"></a>
+            </div>
+            <div class="left_arrow">
+                 <a href="#"><img src="img/left_arrow.png" alt="이전"></a>
+            </div>
+            <div class="notice_box">
+                <div class="notice_t">
+                    <h4>알림마당</h4>
+                    <img src="img/icon6.png" alt="알림마당">
+                </div>
+                <div class="notice_c">
+                    <h2>2020년 자원봉사자 수시 모집 안내</h2>
+                    <p>(사)한국청소년문화원에서 2020년 자원봉사자자를 모집..</p>
+                </div>
+                <div class="notice_b">
+                    <span>2020-02-11</span>
+                    <div class="more">
+                        <h4>more</h4>
+                        <img src="img/icon16.png" alt="more">
+                    </div>
+                </div>
+            </div>
+            <div class="news_box">
+                <div class="news_t">
+                    <h4>보도자료</h4>
+                    <img src="img/icon7.png" alt="보도자료">
+                </div>
+                <div class="news_c">
+                    <h2>"우리도 꿈을 꾸고 싶어요"좋은친구페스티벌</h2>
+                    <p>(사)한국청소년문화원에서 주최·주관한 좋은친구페스..</p>
+                </div>
+                <div class="news_b">
+                    <span>2020-02-11</span>
+                    <div class="more">
+                        <h4>more</h4>
+                        <img src="img/icon17.png" alt="more">
+                    </div>
+                </div>
+            </div>
+            <div class="btn_next">
+                <a href="#"><img src="img/btn_next.png" alt="다음"></a>
+            </div>
+            <div class="right_arrow">
+                <a href="#"><img src="img/right_arrow.png" alt="다음"></a>
+            </div>
+        </section>
+        <section class="gallery">
+            <h1 class="hidden">갤러리</h1>
+            <div class="inner">
+                <div class="gallery_h">
+                    <h2>포토갤러리</h2>
+                    <p>문화원 활동사진을<br>
+                        확인하실 수 있습니다.</p>
+                    <div>
+                        <h4>더보기</h4>
+                        <img src="img/btn_next2.png" alt="btn">
+                    </div>
+                </div>
+                <div class="gallery_b">
+                    <div class="photos">
+                        <img src="img/gallery1.jpg" alt="갤러리1">
+                    </div>
+                    <div class="photos">
+                        <img src="img/gallery2.jpg" alt="갤러리2">
+                    </div>
+                    <div class="photos">
+                        <img src="img/gallery3.jpg" alt="갤러리3">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="icon">
+            <h1 class="hidden">바로가기</h1>
+            <ul>
+                <li>
+                    <i>
+                        <a href="#"><img src="img/icon8.png" alt="후원신청"></a>
+                    </i>
+                    <span>후원신청</span>
+                    <p>사랑은 나눌수록 기쁨이 됩니다.</p>
+                </li>
+                <li>
+                    <i>
+                        <a href="#"><img src="img/icon9.png" alt="자원봉사신청"></a>
+                    </i>
+                    <span>자원봉사신청</span>
+                    <p>봉사의 힘이 필요합니다.</p>
+                </li>
+                <li>
+                    <i>
+                         <a href="#"><img src="img/icon10.png" alt="오시는길"></a>
+                    </i>
+                    <span>오시는길</span>
+                    <p>오시는 길을 알려드립니다.</p>
+                </li>
+                <li>
+                    <i>
+                         <a href="#"><img src="img/icon11.png" alt="상담·문의"></a>
+                    </i>
+                    <span>상담·문의</span>
+                    <p>무엇이든 물어보세요.</p>
+                </li>
+
+            </ul>
+        </section>
+        <section class="sns">
+            <div class="inner">
+                <div class="sns_l">
+                    <img src="img/icon12.png" alt="sns">
+                    <h4>(사)한국청소년문화원SNS에서 더 많은 정보를 만나보세요.</h4>
+                </div>
+                <ul class="sns_r">
+                    <li><a href="#"><img src="img/icon13.png" alt="blog"></a></li>
+                    <li><a href="#"><img src="img/icon14.png" alt="band"></a></li>
+                    <li><a href="#"><img src="img/icon15.png" alt="facebook"></a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer id="footer">
+        <div class="top_footer">
+            <div class="inner">
+                <ul>
+                    <li>문화원소개</li>
+                    <li>개인정보 처리방침</li>
+                    <li>이메일무단수집거부</li>
+                    <li>직원인트라넷</li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom_footer">
+            <div class="inner">
+                <p>주소: 경남 양산시 덕명로 322, 상가 4층 &nbsp;&nbsp; 전화번호 : 055-387-6824 &nbsp;&nbsp; 기타 : 카카오톡 플러스친구 @한국청소년문화원</p>
+                <span>copyrightⓒ(사)한국청소년문화원 all rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+</body></html>
